@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build Tracker Project",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+          "main.c",
+          "auth.c",
+          "-o",
+          "tracker.exe"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"]
+      }
+    ]
+  }
+  
