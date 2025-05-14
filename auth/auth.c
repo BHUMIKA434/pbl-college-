@@ -1,32 +1,10 @@
-// auth.c
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "auth.h"
+#include "../string/string.h" 
 
-#define MAX_LEN 50
 
-void register_user() {
-    char username[MAX_LEN];
-    char password[MAX_LEN];
-
-    printf("Enter a username: ");
-    scanf("%s", username);
-
-    printf("Enter a password: ");
-    scanf("%s", password);
-
-    FILE *fp = fopen("users.txt", "a");
-    if (fp == NULL) {
-        printf("Error opening file.\n");
-        return;
-    }
-
-    fprintf(fp, "%s %s\n", username, password);
-    fclose(fp);
-
-    printf("Registration successful!\n");
-}
+char current_user[MAX_LEN] = "";  // Define the global variable here
 
 void login_user() {
     char username[MAX_LEN];
@@ -48,7 +26,7 @@ void login_user() {
     }
 
     while (fscanf(fp, "%s %s", file_username, file_password) != EOF) {
-        if (strcmp(username, file_username) == 0 && strcmp(password, file_password) == 0) {
+        if (str_compare(username, file_username) == 0 && str_compare(password, file_password) == 0) {
             found = 1;
             break;
         }
@@ -58,6 +36,7 @@ void login_user() {
 
     if (found) {
         printf("Login successful! Welcome, %s.\n", username);
+        str_copy(current_user, username);  // ✅ THIS IS IMPORTANT!
     } else {
         printf("Login failed. Invalid username or password.\n");
     }
